@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "D:/GBDK/gbdk/include/**"
+      ],
+      "defines": [
+        "__PORT_sm83",
+        "__TARGET_gb"
+      ],
+      "compilerPath": "D:/GBDK/gbdk/bin/lcc.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "windows-gcc-x86"
+    }
+  ],
+  "version": 4
+}
