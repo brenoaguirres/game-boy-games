@@ -4,7 +4,8 @@
       "name": "Win32",
       "includePath": [
         "${workspaceFolder}/**",
-        "D:/GBDK/gbdk/include/**"
+        //"D:/GBDK/gbdk/include/**",
+        "C:/Users/khsfg/Documents/GitHub/game-boy-games/gbdk/include/**"
       ],
       "defines": [
         "__PORT_sm83",

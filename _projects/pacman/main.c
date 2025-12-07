@@ -76,7 +76,22 @@ void SetupVRAM() {
 }
 
 void StartGameplay() {
+    VBK_REG = 1; set_bkg_tiles(8, 15, 6, 1, ReadyText_map_attributes);
+    VBK_REG = 0; set_bkg_based_tiles(8, 15, 6, 1, ReadyText_map, READYTEXT_TILES_START);
 
+    delay(1000);
+
+    VBK_REG = 1; set_bkg_tile_xy(10, 11, 0);
+    VBK_REG = 0; set_bkg_tile_xy(10, 11, blank);
+
+    set_bkg_tile_xy(9, 11, get_bkg_tile_xy(8, 9));
+    set_bkg_tile_xy(11, 11, get_bkg_tile_xy(12, 9));
+
+    VBK_REG = 1; fill_bkg_rect(8, 15, 6, 1, 1);
+    VBK_REG = 0; fill_bkg_rect(8, 15, 6, 1, blank);
+
+    twoFrameAnimator = 0;
+    threeFrameAnimator = 0;
 }
 
 void SetupGameplay() {
@@ -117,7 +132,13 @@ void SetupGameplay() {
 }
 
 uint8_t CheckBackgroundTileIsWalkable(int8_t nextColumn, int8_t nextRow) {
-    return 0;
+    if(nextColumn == 10 && nextRow == 11) return TRUE;
+
+    if (nextColumn >= Map_WIDTH / 8 || nextColumn < 0) return TRUE;
+
+    return get_bkg_tile_xy(nextColumn, nextRow) == blank ||
+        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START ||
+        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START + 1;
 }
 
 void UpdateInputs() {
@@ -130,11 +151,30 @@ void UpdateInputs() {
 }
 
 void UpdateGlobalFrameCounters() {
+    counter++;
+    if (counter >= 5) {
+        counter = 0;
+        twoFrameAnimator++;
+        threeFrameAnimator++;
 
+        if (threeFrameAnimator > 2) {
+            threeFrameAnimator = 0;
+        }
+        if (twoFrameAnimator > 1) {
+            twoFrameAnimator = 0;
+        }
+    }
 }
 
 void BlinkLevelBlueAndWhite_Halting() {
+    for (uint8_t i = 0; i < 10; i++) {
+        if (i % 2 == 0) set_bkg_palette(0, 1, Map_palettes + 8);
+        else set_bkg_palette(0, 1, Map_palettes);
 
+        delay(250);
+    }
+
+    set_bkg_palette(0, 1, Map_palettes);
 }
 
 void HandleDeath() {
@@ -157,7 +197,7 @@ void main(void) {
     SetupGameplay();
     StartGameplay();
 
-    while(true) {
+    while(TRUE) {
         UpdateInputs();
         
         UpdateGlobalFrameCounters();
