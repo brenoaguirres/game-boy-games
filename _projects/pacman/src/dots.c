@@ -57,6 +57,41 @@ void SetupDots(){
 }
 
 
-void HandleDotConsumption(){
-        
+void HandleDotConsumption() {
+    uint8_t tile = get_bkg_tile_xy(pacman.column, pacman.row);
+
+    if (threeFrameAnimator == 0) {
+        dotsShown = !dotsShown;
+
+        if (dotsShown) set_bkg_data(DOTS_TILES_START + 1, 1, Dots_tiles + 16);
+        else set_bkg_data(DOTS_TILES_START + 1, 1, Dots_tiles + 32);
+    }
+
+    if (tile == DOTS_TILES_START || tile == DOTS_TILES_START + 1) {
+        NR21_REG = 0x87;
+        NR22_REG = 0x65;
+        NR23_REG = 0xf8;
+        NR24_REG = 0x86;
+
+        if (tile == DOTS_TILES_START + 1) {
+            frightenedTimer = 500;
+            for (uint8_t i = 0; i < 4; i++) {
+                if (ghosts[i].state == SCATTERCHASE) {
+                    ghosts[i].state = FRIGHTENED;
+
+                    TryChangeDirection(&ghosts[i], reverseDirections[ghosts[i].direction]);
+                }
+            }
+        }
+
+        score++;
+
+        if (score > highScore) highScore = score;
+
+        UpdateScore();
+
+        dotsRemaining--;
+
+        set_bkg_tile_xy(pacman.column, pacman.row, blank);
+    }
 }
