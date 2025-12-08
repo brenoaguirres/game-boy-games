@@ -52,6 +52,16 @@ void UpdateCameraPosition(uint8_t dividor) {
     SCY_REG += cameraYDiff / dividor;
 }
 
+uint8_t CheckBackgroundTileIsWalkable(int8_t nextColumn, int8_t nextRow) {
+    if(nextColumn == 10 && nextRow == 11) return TRUE;
+
+    if (nextColumn >= Map_WIDTH / 8 || nextColumn < 0) return TRUE;
+
+    return get_bkg_tile_xy(nextColumn, nextRow) == blank ||
+        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START ||
+        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START + 1;
+}
+
 void SetupVRAM() {
     set_sprite_palette(0, 5, Pacman_palettes);
     set_bkg_palette(0, 5, Map_palettes);
@@ -114,7 +124,7 @@ void SetupGameplay() {
     SetupGhosts();
 
     UpdateScore();
-    UpdateCameraPostion(1);
+    UpdateCameraPosition(1);
     DrawGhost(0);
     DrawGhost(1);
     DrawGhost(2);
@@ -129,16 +139,6 @@ void SetupGameplay() {
             TileSideWalkability[i][j][LEFT] = CheckBackgroundTileIsWalkable(i - 1, j);
         }
     }
-}
-
-uint8_t CheckBackgroundTileIsWalkable(int8_t nextColumn, int8_t nextRow) {
-    if(nextColumn == 10 && nextRow == 11) return TRUE;
-
-    if (nextColumn >= Map_WIDTH / 8 || nextColumn < 0) return TRUE;
-
-    return get_bkg_tile_xy(nextColumn, nextRow) == blank ||
-        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START ||
-        get_bkg_tile_xy(nextColumn, nextRow) == DOTS_TILES_START + 1;
 }
 
 void UpdateInputs() {

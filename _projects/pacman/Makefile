@@ -20,8 +20,8 @@ endif
 PROJECTNAME    = Pacman
 
 BINS	    = $(PROJECTNAME).gb
-CSOURCES   := $(wildcard *.c)
-ASMSOURCES := $(wildcard *.s)
+CSOURCES   := $(wildcard *.c  graphics/*.c src/*.c)
+ASMSOURCES := $(wildcard *.s graphics/*.s src/*.s)
 
 all:	$(BINS)
 
