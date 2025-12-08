@@ -12,14 +12,14 @@ LCC = $(GBDK_HOME)gbdk/bin/lcc
 
 # GBDK_DEBUG = ON
 ifdef GBDK_DEBUG
-	LCCFLAGS += -debug -v
+	LCCFLAGS += -Wm-yC -debug -v 
 endif
 
 
 # You can set the name of the .gb ROM file here
 PROJECTNAME    = Pacman
 
-BINS	    = $(PROJECTNAME).gb
+BINS	    = $(PROJECTNAME).gbc
 CSOURCES   := $(wildcard *.c  graphics/*.c src/*.c)
 ASMSOURCES := $(wildcard *.s graphics/*.s src/*.s)
 

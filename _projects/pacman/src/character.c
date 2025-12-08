@@ -3,8 +3,8 @@
 #include "common.h"
 #include "character.h"
 #include "util.h"
-#include "graphics/Map.h"
-#include "graphics/Dots.h"
+#include "../graphics/Map.h"
+#include "../graphics/Dots.h"
 
 uint8_t directionsCharacterCanMoveIn[4] = {0,0,0,0},numberOfDirectionsCharacterCanMoveIn=0;
 

@@ -2,15 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include "common.h"
-#include "graphics/Map.h"
+#include "../graphics/Map.h"
 #include "hud.h"
-#include "graphics/Map.h"
-#include "graphics/Numbers.h"
-#include "graphics/Dots.h"
-#include "graphics/HighText.h"
-#include "graphics/OneUpText.h"
-#include "graphics/BlackSquare.h"
-#include "graphics/ReadyText.h"
+#include "../graphics/Map.h"
+#include "../graphics/Numbers.h"
+#include "../graphics/Dots.h"
+#include "../graphics/HighText.h"
+#include "../graphics/OneUpText.h"
+#include "../graphics/BlackSquare.h"
+#include "../graphics/ReadyText.h"
 
 
 void UpdateScore(){
